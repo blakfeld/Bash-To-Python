@@ -1,0 +1,40 @@
+#!/usr/bin/env python
+"""
+Emulate /bin/cat
+
+Author: Corwin Brown
+E-Mail: blakfeld@gmail.com
+Date: 5/24/2015
+"""
+
+import sys
+try:
+    from bash_to_python.cat import Cat
+except ImportError:
+    import os
+    sys.path.append(
+        os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+    from bash_to_python.cat import Cat
+
+
+if __name__ == '__main__':
+    """
+    Main
+    """
+
+    if not sys.stdin.isatty():
+        c = Cat(stdin=sys.stdin.read())
+
+    elif len(sys.argv) > 1:
+        file_paths = sys.argv[1:]
+        c = Cat(sys.argv[1:])
+
+    else:
+        c = Cat()
+
+    try:
+        c.run()
+    except ValueError as e:
+        print(e)
+    except KeyboardInterrupt:
+        sys.exit(1)
