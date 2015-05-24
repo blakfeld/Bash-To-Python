@@ -13,7 +13,7 @@ class Tail(object):
 
     BLOCK_SIZE = 512
 
-    def __init__(self, args):
+    def __init__(self, fname=None, num_lines=10,):
         """
         Constructor
 
@@ -21,14 +21,20 @@ class Tail(object):
             args (list): Any command line arguments.
         """
 
-        self.args = self.parser(args)
+        self.fname = fname
+        self.num_lines = num_lines
 
     def run(self):
         """
         Emulate UNIX tail
         """
 
-        pass
+        if isinstance(self.fname, list):
+            for f in self.fname:
+                print('\n==> {} <=='.format(f))
+                print(self._tail_lines(f, self.num_lines))
+        else:
+            print(self._tail_lines(self.fname, self.num_lines))
 
     def _parser(self, args):
         """
@@ -82,7 +88,8 @@ class Tail(object):
                     blocks.append(f.read(self.BLOCK_SIZE))
 
                 else:
-                    blocks.append(f.read(self.BLOCK_SIZE))
+                    f.seek(0, 0)
+                    blocks.append(f.read(file_end_byte))
 
                 # Count the number of newlines to see how many lines we have
                 #   left to find.
