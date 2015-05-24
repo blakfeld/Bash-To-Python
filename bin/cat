@@ -26,15 +26,15 @@ if __name__ == '__main__':
         c = Cat(stdin=sys.stdin.read())
 
     elif len(sys.argv) > 1:
-        file_paths = sys.argv[1:]
         c = Cat(sys.argv[1:])
 
     else:
         c = Cat()
 
     try:
-        c.run()
+        sys.exit(c.run())
     except ValueError as e:
         print(e)
+        sys.exit(2)
     except KeyboardInterrupt:
         sys.exit(1)
