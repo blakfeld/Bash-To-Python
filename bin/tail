@@ -29,10 +29,20 @@ if __name__ == '__main__':
                         metavar='number',
                         default=10,
                         help='The location is "number" lines')
+    parser.add_argument('-f',
+                        action='store_true',
+                        default=False,
+                        help='The -f option causes tail to not stop when end '
+                             'of file is reached, but rather to wait for '
+                             'additional data to be appended to the input.')
 
     args = parser.parse_args()
 
-    t = Tail(fname=args.infile, num_lines=args.n)
+    stdin = None
+    if not sys.stdin.isatty():
+        stdin = sys.stdin.read()
+
+    t = Tail(stdin=stdin, fname=args.infile, num_lines=args.n, watch=args.f)
 
     try:
         sys.exit(t.run())

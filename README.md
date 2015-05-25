@@ -8,3 +8,6 @@ of some common Bash utilities, so, here we go!
 ## Completed
 
 * cat
+* tail
+    * Not quite feature complete, but it's probably as far as I'm going to
+        go with it.
