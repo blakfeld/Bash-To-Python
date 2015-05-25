@@ -7,6 +7,7 @@ Date: 5/25/2015
 """
 
 import os
+import sys
 
 
 class Cat(object):
@@ -69,7 +70,7 @@ class Cat(object):
         """
 
         with open(fname, 'r') as f:
-            print(f.read())
+            sys.stdout.write((f.read()))
 
     def _cat_input(self):
         """
@@ -78,7 +79,7 @@ class Cat(object):
 
         while True:
             user_input = raw_input()
-            print(user_input)
+            sys.stdout.write(user_input)
 
     def _validate_file(self, fname):
         """
